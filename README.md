@@ -1,23 +1,27 @@
-# Navegador Livre para Android
+# Navegador Livre 2.0 (Android / Kotlin)
 
-Navegador Android simples inspirado na experiência de um navegador moderno. Usa o WebView do Android (não o motor completo do Google Chrome).
+Navegador independente com interface inspirada em navegadores modernos. Baseado em Android WebView; não é o Google Chrome ou Samsung Internet.
 
-## Recursos
-- Pesquisar na web ou abrir URLs
-- Criar, alternar e fechar abas
-- Voltar, avançar, atualizar, página inicial
-- Salvar e abrir favoritos
-- Compartilhar endereço
+## Incluído
+- Barra de endereços e busca Google, página inicial e seis atalhos
+- Abas, favoritos, navegação de voltar/avançar/recarregar
+- Tema claro/escuro
+- Downloads via Android DownloadManager para pasta Downloads (solicita permissão em Android 9 ou anterior)
+- Nova janela de navegação privada em processo Android separado, usando diretório WebView diferente (Android 9+). Dados de cookies/web storage privados são apagados ao fechar a Activity; downloads permanecem no dispositivo. Não equivale a anonimato na internet.
+- Vídeos HTML5 com tela cheia, conforme o suporte do site e do Android WebView. Não reproduz o player proprietário da Samsung nem garante compatibilidade com todos os serviços DRM.
+- Sem bibliotecas de publicidade dentro do aplicativo; sites acessados podem exibir publicidade.
 
-## Como gerar o APK no GitHub
-1. Crie um repositório GitHub vazio, por exemplo `navegador-livre`.
-2. Extraia este ZIP e envie **o conteúdo da pasta NavegadorLivre** ao repositório, inclusive a pasta `.github` (oculta em alguns gerenciadores).
-3. Vá em **Actions** > **Gerar APK Android** > **Run workflow** (ou envie um commit na branch `main`).
-4. Após a execução, abra a execução concluída e baixe o artefato `navegador-livre-debug-apk`.
-5. Extraia o ZIP de artefato para obter `app-debug.apk` e instale no Android.
+## Atualização pelo GitHub
+1. Extraia o ZIP, abra a pasta `NavegadorLivre` e envie **o conteúdo dela** para a raiz do mesmo repositório GitHub (`app`, `.github`, `build.gradle.kts`, `settings.gradle.kts` etc.). Substitua os arquivos antigos.
+2. Em `.github/workflows/main.yml`, mantenha o workflow `main.yml` atualizado, sem criar outro workflow duplicado.
+3. Acesse Actions → Gerar APK Android → selecione a execução com ✔ → Artifacts → `navegador-livre-debug-apk`.
+4. Descompacte e instale `app-debug.apk`. O código usa o mesmo applicationId que a v1, mas builds debug geradas em runners diferentes **podem usar chaves de assinatura diferentes**, exigindo desinstalar a versão antiga antes de instalar; isso apaga dados locais do app.
 
-## Android Studio / Codespaces
-Importe como projeto Gradle, aguarde sincronização e execute `gradle assembleDebug`. SDK 35 e Java 17 são necessários.
+## Estrutura
+- `app/src/main/java/com/example/navegadorlivre/MainActivity.kt`: UI, abas, WebView, downloads, vídeo, temas
+- `app/src/main/java/com/example/navegadorlivre/PrivateActivity.kt`: Activity de navegação privada (processo isolado)
+- `app/src/main/AndroidManifest.xml`: permissões e activities
+- `.github/workflows/main.yml`: montagem do APK com GitHub Actions e SDK v4
 
-## Limites da versão inicial
-Não é uma cópia do Chrome. Esta versão usa WebView, não oferece sincronização Google, extensões, modo anônimo, gerenciador de downloads ou suporte avançado a múltiplas janelas. Alguns sites não funcionam integralmente em WebView. O APK do workflow é de teste e não é assinado para publicação na Play Store.
+## Limitações
+Build não foi executado neste ambiente; valide no GitHub Actions. Apps de navegador completos exigem tratamento adicional de autenticação, uploads, permissões dos sites, pop-ups, recuperação de sessão e segurança.
