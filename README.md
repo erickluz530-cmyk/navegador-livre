@@ -1,4 +1,4 @@
-# Navegador Livre 2.0 (Android / Kotlin)
+# Navegador Livre 2.1 (Android / Kotlin)
 
 Navegador independente com interface inspirada em navegadores modernos. Baseado em Android WebView; não é o Google Chrome ou Samsung Internet.
 
@@ -25,3 +25,10 @@ Navegador independente com interface inspirada em navegadores modernos. Baseado 
 
 ## Limitações
 Build não foi executado neste ambiente; valide no GitHub Actions. Apps de navegador completos exigem tratamento adicional de autenticação, uploads, permissões dos sites, pop-ups, recuperação de sessão e segurança.
+
+## Correções 2.1
+- Barra de endereços respeita a barra de status/navegação do Android 15.
+- Toque no campo seleciona o URL inteiro para digitar outro endereço.
+- Botão + abre aba e mostra confirmação e contador de abas.
+- Links com abertura de nova janela pelo gesto do usuário podem abrir nova aba.
+- URL carregada em segundo plano não sobrescreve edição em andamento.
